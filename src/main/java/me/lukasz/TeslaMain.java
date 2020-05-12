@@ -2,6 +2,8 @@ package me.lukasz;
 
 import me.lukasz.database.MySQLUtils;
 
+import java.sql.Timestamp;
+
 public class TeslaMain
 {
 
