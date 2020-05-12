@@ -1,4 +1,4 @@
-package me.lukasz.database.entitys;
+package me.lukasz.database.entities;
 
 import java.sql.Timestamp;
 

@@ -1,4 +1,4 @@
-package me.lukasz.database.entitys;
+package me.lukasz.database.entities;
 
 public class Customer
 {

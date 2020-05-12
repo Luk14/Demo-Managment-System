@@ -1,8 +1,4 @@
-package me.lukasz.database.entitys;
-
-import me.lukasz.database.MySQLExec;
-
-import java.util.ArrayList;
+package me.lukasz.database.entities;
 
 public class Car
 {
