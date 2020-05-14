@@ -57,4 +57,15 @@ public class EmpLogin
     {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString()
+    {
+        return "EmpLogin{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

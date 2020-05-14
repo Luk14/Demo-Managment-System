@@ -1,10 +1,12 @@
 package me.lukasz.database;
 
+import me.lukasz.utils.Msg;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public abstract class MySQLUtils
+public abstract class MySQL
 {
 
     public static final String HOST = "localhost";
@@ -20,11 +22,11 @@ public abstract class MySQLUtils
         try
         {
             connection = DriverManager.getConnection("jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE + "?serverTimezone=UTC", USER, PASSWORD);
-            System.out.println("[TeslaManagment] Connection has been established to the Database!");
+            System.out.println(Msg.DB_SUCCESS);
         }
         catch (SQLException e)
         {
-            System.out.println("[TeslaManagment] Error has occured in connection with the database!\n Stacktrace: ");
+            System.out.println(Msg.DB_UNSUCCESSFUL);
             e.printStackTrace();
         }
     }
@@ -36,20 +38,15 @@ public abstract class MySQLUtils
             if(connection==null||connection.isClosed())
             {
                 connectDatabase();
+                System.out.println(Msg.DB_SUCCESS);
                 return connection;
             }
         }
         catch (SQLException e)
         {
-            System.out.println("[TeslaManagment] Error has occured in connection with the database!\n Stacktrace: ");
+            System.out.println(Msg.DB_UNSUCCESSFUL);
             e.printStackTrace();
         }
         return connection;
     }
-
-    public static boolean isConnected()
-    {
-        return (connection != null);
-    }
-
 }

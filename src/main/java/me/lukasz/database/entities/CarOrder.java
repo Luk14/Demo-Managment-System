@@ -1,12 +1,12 @@
 package me.lukasz.database.entities;
 
-public class CarOrders
+public class CarOrder
 {
 
     private int orderID;
     private int carID;
 
-    public CarOrders(int orderID, int carID)
+    public CarOrder(int orderID, int carID)
     {
         this.orderID = orderID;
         this.carID = carID;
@@ -30,5 +30,14 @@ public class CarOrders
     public void setCarID(int carID)
     {
         this.carID = carID;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "CarOrder{" +
+                "orderID=" + orderID +
+                ", carID=" + carID +
+                '}';
     }
 }

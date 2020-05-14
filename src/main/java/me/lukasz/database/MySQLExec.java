@@ -4,16 +4,14 @@ import java.util.ArrayList;
 
 public interface MySQLExec
 {
-    void createRecord(String value);
     void createRecord(Object object);
 
-    String getRecordString(String field);
+    String getRecordString(int target, String field);
     ArrayList<Object> getArrayObjects();
-    Object getRecordObject();
+    Object getRecordObject(int target);
 
-    void setString(String record, String targetField);
-    void setInt(int record, String targetField);
+    void setString(String target, String setField);
+    void setInt(String target, int setField);
 
-    void deleteRecord(String uniquePK);
     void deleteRecord(int uniquePK);
 }

@@ -79,4 +79,17 @@ public class Employee
     {
         this.email = email;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Employee{" +
+                "id=" + id +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", permissions=" + permissions +
+                ", work_sector='" + work_sector + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
