@@ -112,7 +112,26 @@ public class EmployeeManager implements MySQLExec
         return null;
     }
 
-    //TODO
+    public Object getRecordObjectUsername(String username)
+    {
+        try
+        {
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM employee WHERE username = \"" + username + "\";");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next())
+            {
+                System.out.println(Msg.EXECUTED_CORRECTLY);
+                return new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Employee.userPermission.valueOf(resultSet.getString(4).toUpperCase()),
+                        resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8));
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(Msg.DB_ERROR);
+        }
+        return null;
+    }
+
     public void setString(String uniqueID, String targetField, String result)
     {
         try

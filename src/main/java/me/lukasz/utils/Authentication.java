@@ -35,7 +35,6 @@ public class Authentication
         {
             sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
         }
-        System.out.println(sb.toString());
         return sb.toString();
     }
 
