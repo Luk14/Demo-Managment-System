@@ -3,13 +3,13 @@ package me.lukasz.database.manager;
 import me.lukasz.database.MySQL;
 import me.lukasz.database.MySQLExec;
 import me.lukasz.database.entities.Car;
-import me.lukasz.database.entities.Customer;
 import me.lukasz.utils.Msg;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class CarManager implements MySQLExec
 {
@@ -18,15 +18,16 @@ public class CarManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO Car (model_name, model_version, price, year, colour, zero_to_sixty, top_speed, range_wltp) VALUES (?,?,?,?,?,?,?,?)");
-            preparedStatement.setString(1, model_name);
-            preparedStatement.setString(2, model_version.toString());
-            preparedStatement.setFloat(3, price);
-            preparedStatement.setShort(4, year);
-            preparedStatement.setString(5, colour);
-            preparedStatement.setFloat(6, zeroToSixty);
-            preparedStatement.setInt(7, topSpeed);
-            preparedStatement.setInt(8, range_wltp);
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO Car (CRID, model_name, model_version, price, year, colour, zero_to_sixty, top_speed, range_wltp) VALUES (?,?,?,?,?,?,?,?)");
+            preparedStatement.setString(1, UUID.randomUUID().toString());
+            preparedStatement.setString(2, model_name);
+            preparedStatement.setString(3, model_version.toString());
+            preparedStatement.setFloat(4, price);
+            preparedStatement.setShort(5, year);
+            preparedStatement.setString(6, colour);
+            preparedStatement.setFloat(7, zeroToSixty);
+            preparedStatement.setInt(8, topSpeed);
+            preparedStatement.setInt(9, range_wltp);
             preparedStatement.executeUpdate();
             System.out.println(Msg.EXECUTED_CORRECTLY);
         } catch (SQLException e)
@@ -49,7 +50,7 @@ public class CarManager implements MySQLExec
         }
     }
 
-    public String getRecordString(int carId, String field)
+    public String getRecordString(String carId, String field)
     {
         try
         {
@@ -76,7 +77,7 @@ public class CarManager implements MySQLExec
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             {
-                arrayList.add(new Car(resultSet.getInt(1), resultSet.getString(2), Car.modelVersion.valueOf(resultSet.getString(3).toUpperCase()), resultSet.getFloat(4), resultSet.getFloat(5), resultSet.getString(6), resultSet.getFloat(7), resultSet.getShort(8), resultSet.getInt(9)));
+                arrayList.add(new Car(resultSet.getString(1), resultSet.getString(2), Car.modelVersion.valueOf(resultSet.getString(3).toUpperCase()), resultSet.getFloat(4), resultSet.getFloat(5), resultSet.getString(6), resultSet.getFloat(7), resultSet.getShort(8), resultSet.getInt(9)));
             }
         } catch (Exception e)
         {
@@ -86,7 +87,7 @@ public class CarManager implements MySQLExec
         return arrayList;
     }
 
-    public Object getRecordObject(int uniqueID)
+    public Object getRecordObject(String uniqueID)
     {
         try
         {
@@ -95,7 +96,7 @@ public class CarManager implements MySQLExec
             while (resultSet.next())
             {
                 System.out.println(Msg.EXECUTED_CORRECTLY);
-                return new Car(resultSet.getInt(1), resultSet.getString(2), Car.modelVersion.valueOf(resultSet.getString(3).toUpperCase()), resultSet.getFloat(4), resultSet.getFloat(5), resultSet.getString(6), resultSet.getFloat(7), resultSet.getShort(8), resultSet.getInt(9));
+                return new Car(resultSet.getString(1), resultSet.getString(2), Car.modelVersion.valueOf(resultSet.getString(3).toUpperCase()), resultSet.getFloat(4), resultSet.getFloat(5), resultSet.getString(6), resultSet.getFloat(7), resultSet.getShort(8), resultSet.getInt(9));
             }
         } catch (Exception e)
         {
@@ -130,7 +131,7 @@ public class CarManager implements MySQLExec
         }
     }
 
-    public void deleteRecord(int uniquePK)
+    public void deleteRecord(String uniquePK)
     {
         try
         {

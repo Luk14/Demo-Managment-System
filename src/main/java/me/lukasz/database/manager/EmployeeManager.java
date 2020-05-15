@@ -2,7 +2,6 @@ package me.lukasz.database.manager;
 
 import me.lukasz.database.MySQL;
 import me.lukasz.database.MySQLExec;
-import me.lukasz.database.entities.Customer;
 import me.lukasz.database.entities.Employee;
 import me.lukasz.utils.Authentication;
 import me.lukasz.utils.Msg;
@@ -11,8 +10,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class EmployeeManager implements MySQLExec
 {
@@ -21,14 +20,15 @@ public class EmployeeManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO employee (first_name, last_name, user_permissions, work_sector,email,username,password) VALUES (?,?,?,?,?,?,?)");
-            preparedStatement.setString(1, fname);
-            preparedStatement.setString(2, lname);
-            preparedStatement.setString(3, user_permissions.toString());
-            preparedStatement.setString(4, work_sector);
-            preparedStatement.setString(5, email);
-            preparedStatement.setString(6, username);
-            preparedStatement.setString(7, new Authentication(password).hashPassword());
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO employee (EID, first_name, last_name, user_permissions, work_sector,email,username,password) VALUES (?,?,?,?,?,?,?,?)");
+            preparedStatement.setString(1, UUID.randomUUID().toString());
+            preparedStatement.setString(2, fname);
+            preparedStatement.setString(3, lname);
+            preparedStatement.setString(4, user_permissions.toString());
+            preparedStatement.setString(5, work_sector);
+            preparedStatement.setString(6, email);
+            preparedStatement.setString(7, username);
+            preparedStatement.setString(8, new Authentication(password).hashPassword());
             preparedStatement.executeUpdate();
             System.out.println(Msg.EXECUTED_CORRECTLY);
         }
@@ -52,7 +52,7 @@ public class EmployeeManager implements MySQLExec
         }
     }
 
-    public String getRecordString(int userId, String field)
+    public String getRecordString(String userId, String field)
     {
         try
         {
@@ -80,7 +80,7 @@ public class EmployeeManager implements MySQLExec
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next())
             {
-                arrayList.add(new Employee(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), Employee.userPermission.valueOf(resultSet.getString(4).toUpperCase()),
+                arrayList.add(new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Employee.userPermission.valueOf(resultSet.getString(4).toUpperCase()),
                         resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8)));
             }
         }
@@ -92,7 +92,7 @@ public class EmployeeManager implements MySQLExec
         return arrayList;
     }
 
-    public Object getRecordObject(int uniqueID)
+    public Object getRecordObject(String uniqueID)
     {
         try
         {
@@ -101,7 +101,7 @@ public class EmployeeManager implements MySQLExec
             while(resultSet.next())
             {
                 System.out.println(Msg.EXECUTED_CORRECTLY);
-                return new Employee(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), Employee.userPermission.valueOf(resultSet.getString(4).toUpperCase()),
+                return new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Employee.userPermission.valueOf(resultSet.getString(4).toUpperCase()),
                         resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8));
             }
         }
@@ -141,7 +141,7 @@ public class EmployeeManager implements MySQLExec
         }
     }
 
-    public void deleteRecord(int uniquePK)
+    public void deleteRecord(String uniquePK)
     {
         try
         {

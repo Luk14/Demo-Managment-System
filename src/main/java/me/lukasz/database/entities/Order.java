@@ -3,31 +3,31 @@ package me.lukasz.database.entities;
 public class Order
 {
 
-    private int orderID;
-    private int customerID;
+    private String orderID;
+    private String customerID;
 
-    public Order(int orderID, int customerID)
+    public Order(String orderID, String customerID)
     {
         this.orderID = orderID;
         this.customerID = customerID;
     }
 
-    public int getOrderID()
+    public String getOrderID()
     {
         return orderID;
     }
 
-    public void setOrderID(int orderID)
+    public void setOrderID(String orderID)
     {
         this.orderID = orderID;
     }
 
-    public int getCustomerID()
+    public String getCustomerID()
     {
         return customerID;
     }
 
-    public void setCustomerID(int customerID)
+    public void setCustomerID(String customerID)
     {
         this.customerID = customerID;
     }

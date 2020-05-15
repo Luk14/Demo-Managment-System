@@ -3,7 +3,7 @@ package me.lukasz.database.entities;
 public class Customer
 {
 
-    private int id;
+    private String id;
     private String fname;
     private String lname;
     private short age;
@@ -12,7 +12,7 @@ public class Customer
     private String city;
     private String email;
 
-    public Customer(int id, String fname, String lname, short age, String address, String postcode, String city, String email)
+    public Customer(String id, String fname, String lname, short age, String address, String postcode, String city, String email)
     {
         this.id = id;
         this.fname = fname;
@@ -24,12 +24,12 @@ public class Customer
         this.email = email;
     }
 
-    public int getId()
+    public String getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(String id)
     {
         this.id = id;
     }

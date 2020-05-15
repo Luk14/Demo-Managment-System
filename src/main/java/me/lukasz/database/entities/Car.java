@@ -3,7 +3,7 @@ package me.lukasz.database.entities;
 public class Car
 {
 
-    private int id;
+    private String id;
     private String model_name;
     private modelVersion model_version;
     private float price;
@@ -13,7 +13,7 @@ public class Car
     private float topSpeed;
     private float range_wltp;
 
-    public Car(int id, String model_name, modelVersion model_version, float price, float year, String colour, float zeroToSixty, float topSpeed, float range_wltp)
+    public Car(String id, String model_name, modelVersion model_version, float price, float year, String colour, float zeroToSixty, float topSpeed, float range_wltp)
     {
         this.id = id;
         this.model_name = model_name;
@@ -26,12 +26,12 @@ public class Car
         this.range_wltp = range_wltp;
     }
 
-    public int getId()
+    public String getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(String id)
     {
         this.id = id;
     }

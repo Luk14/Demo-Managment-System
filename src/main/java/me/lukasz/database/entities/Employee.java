@@ -1,11 +1,9 @@
 package me.lukasz.database.entities;
 
-import java.sql.Timestamp;
-
 public class Employee
 {
 
-    private int id;
+    private String id;
     private String fname;
     private String lname;
     private userPermission permissions;
@@ -14,7 +12,7 @@ public class Employee
     private String username;
     private String password;
 
-    public Employee(int id, String fname, String lname, userPermission permissions, String work_sector, String email, String username, String password)
+    public Employee(String id, String fname, String lname, userPermission permissions, String work_sector, String email, String username, String password)
     {
         this.id = id;
         this.fname = fname;
@@ -26,12 +24,12 @@ public class Employee
         this.password = password;
     }
 
-    public int getId()
+    public String getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(String id)
     {
         this.id = id;
     }
@@ -112,5 +110,20 @@ public class Employee
         ELEVATED,
         ADMINISTRATOR,
         SUPER_USER;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Employee{" +
+                "id='" + id + '\'' +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", permissions=" + permissions +
+                ", work_sector='" + work_sector + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

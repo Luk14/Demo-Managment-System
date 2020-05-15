@@ -8,8 +8,8 @@ import me.lukasz.utils.Msg;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class CustomerManager implements MySQLExec
 {
@@ -18,14 +18,15 @@ public class CustomerManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO Customer (first_name, last_name, age, address,postcode, city, email) VALUES (?,?,?,?,?,?,?)");
-            preparedStatement.setString(1, fname);
-            preparedStatement.setString(2, lname);
-            preparedStatement.setShort(3, age);
-            preparedStatement.setString(4, address);
-            preparedStatement.setString(5, postcode);
-            preparedStatement.setString(6, city);
-            preparedStatement.setString(7, email);
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO Customer (CID, first_name, last_name, age, address,postcode, city, email) VALUES (?,?,?,?,?,?,?,?)");
+            preparedStatement.setString(1, UUID.randomUUID().toString());
+            preparedStatement.setString(2, fname);
+            preparedStatement.setString(3, lname);
+            preparedStatement.setShort(4, age);
+            preparedStatement.setString(5, address);
+            preparedStatement.setString(6, postcode);
+            preparedStatement.setString(7, city);
+            preparedStatement.setString(8, email);
             preparedStatement.executeUpdate();
             System.out.println(Msg.EXECUTED_CORRECTLY);
         }
@@ -49,7 +50,7 @@ public class CustomerManager implements MySQLExec
         }
     }
 
-    public String getRecordString(int userId, String field)
+    public String getRecordString(String userId, String field)
     {
         try
         {
@@ -77,7 +78,7 @@ public class CustomerManager implements MySQLExec
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next())
             {
-                arrayList.add(new Customer(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getShort(4),
+                arrayList.add(new Customer(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getShort(4),
                         resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8)));
             }
         }
@@ -89,7 +90,7 @@ public class CustomerManager implements MySQLExec
         return arrayList;
     }
 
-    public Object getRecordObject(int uniqueID)
+    public Object getRecordObject(String uniqueID)
     {
         try
         {
@@ -98,7 +99,7 @@ public class CustomerManager implements MySQLExec
             while(resultSet.next())
             {
                 System.out.println(Msg.EXECUTED_CORRECTLY);
-                return new Customer(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getShort(4),
+                return new Customer(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getShort(4),
                         resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8));
             }
         }
@@ -137,7 +138,7 @@ public class CustomerManager implements MySQLExec
         }
     }
 
-    public void deleteRecord(int uniquePK)
+    public void deleteRecord(String uniquePK)
     {
         try
         {
