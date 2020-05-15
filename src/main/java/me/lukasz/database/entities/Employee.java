@@ -24,6 +24,8 @@ public class Employee
         this.password = password;
     }
 
+    public Employee(){}
+
     public String getId()
     {
         return id;

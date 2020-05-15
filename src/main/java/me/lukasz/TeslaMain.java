@@ -11,6 +11,8 @@ import java.sql.SQLException;
 public class TeslaMain
 {
 
+    public static Employee employee;
+
     public static void main(String[] args) throws SQLException, NoSuchAlgorithmException
     {
         MySQL.connectDatabase();

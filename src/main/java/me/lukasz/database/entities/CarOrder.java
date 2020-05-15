@@ -12,6 +12,8 @@ public class CarOrder
         this.carID = carID;
     }
 
+    public CarOrder(){}
+
     public String getOrderID()
     {
         return orderID;

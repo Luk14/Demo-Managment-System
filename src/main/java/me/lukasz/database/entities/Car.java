@@ -26,6 +26,8 @@ public class Car
         this.range_wltp = range_wltp;
     }
 
+    public Car(){}
+
     public String getId()
     {
         return id;

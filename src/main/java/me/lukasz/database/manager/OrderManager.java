@@ -52,6 +52,7 @@ public class OrderManager
             PreparedStatement preparedStatement1 = MySQL.getConnection().prepareStatement("INSERT INTO car_orders VALUES (?,?)");
             preparedStatement1.setString(1, UUID);
             preparedStatement1.setString(2, car.getId());
+            preparedStatement1.executeUpdate();
         } catch (SQLException e)
         {
             System.out.println(Msg.DB_ERROR);

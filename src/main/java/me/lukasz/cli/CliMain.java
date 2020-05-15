@@ -1,5 +1,7 @@
 package me.lukasz.cli;
 
+import me.lukasz.TeslaMain;
+import me.lukasz.cli.othercli.CustomerCli;
 import me.lukasz.database.entities.Employee;
 import me.lukasz.database.manager.EmployeeManager;
 import me.lukasz.utils.Authentication;
@@ -26,11 +28,10 @@ public class CliMain extends CliUtil
             if (authentication.authenticate())
             {
                 Employee employee = (Employee) new EmployeeManager().getRecordObjectUsername(username);
+                TeslaMain.employee = employee;
                 printTextPrefix("Welcome to the System " + employee.getFname() + "!");
-                printTextPrefix("Your Permissions are: " + employee.getPermissions());
-                /*
-                List Options!
-                 */
+                printTextPrefix("Your Permissions are: " + employee.getPermissions() + "\n");
+                optionsPerm(employee);
             }
             else
             {
@@ -44,35 +45,78 @@ public class CliMain extends CliUtil
         }
     }
 
-    private void optionsPerm(Employee employee)
+    public void optionsPerm(Employee employee)
     {
         switch (employee.getPermissions())
         {
-            case STANDARD:
-                /*
-                Add Order
-                View Orders
-                View Customers
-                 */
-                break;
-            case ELEVATED:
-                /*
-                Remove Order
-                Update Customer
-                Update Order
-                 */
-                break;
-            case ADMINISTRATOR:
-                /*
-                Add Employee
-                Update Employee
-                 */
-                break;
             case SUPER_USER:
-                /*
-                Remove Employee
-                 */
+                printText("10] Remove Employee");
+            case ADMINISTRATOR:
+                printText("9] Add Employee");
+                printText("8] Update Employee");
+            case ELEVATED:
+                printText("7] Remove Order");
+                printText("6] Update Customer Details");
+                printText("5] Update Order");
+            case STANDARD:
+                printText("4] Add Order");
+                printText("3] View Orders");
+                printText("2] Add Customer");
+                printText("1] View Customers"); //Done
                 break;
         }
+        System.out.println("");
+        int i = Scan.getInt();
+        if(checkCorrectEntry(i, employee))
+        {
+            sendCLI(i);
+        }
+        else
+        {
+            printTextPrefix("Wrong Entry, please try again!");
+            this.optionsPerm(employee);
+        }
+    }
+
+    private void sendCLI(int input)
+    {
+        CustomerCli customerCli = new CustomerCli();
+        switch (input)
+        {
+            case 1:
+                customerCli.viewAllCustomers();
+                break;
+            case 2:
+                customerCli.addCustomer();
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
+            default:
+                printTextPrefix("Wrong Option Selected! Please retry");
+                break;
+        }
+    }
+
+    private boolean checkCorrectEntry(int i, Employee employee)
+    {
+        if(i <= 10 && employee.getPermissions().equals(Employee.userPermission.SUPER_USER))return true;
+        if(i <= 9 && employee.getPermissions().equals(Employee.userPermission.ADMINISTRATOR))return true;
+        if(i <= 7 && employee.getPermissions().equals(Employee.userPermission.ELEVATED))return true;
+        if(i <= 4 && employee.getPermissions().equals(Employee.userPermission.STANDARD))return true;
+        return false;
     }
 }

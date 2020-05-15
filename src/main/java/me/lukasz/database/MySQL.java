@@ -49,4 +49,16 @@ public abstract class MySQL
         }
         return connection;
     }
+
+    public static void closeConnection()
+    {
+        try
+        {
+            getConnection().close();
+        }
+        catch (SQLException e)
+        {
+            System.out.println(Msg.PREFIX + " Error closing Database!");
+        }
+    }
 }
