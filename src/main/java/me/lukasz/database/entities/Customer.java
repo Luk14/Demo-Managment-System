@@ -103,4 +103,19 @@ public class Customer
     {
         this.email = email;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Customer{" +
+                "id=" + id +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", age=" + age +
+                ", address='" + address + '\'' +
+                ", postcode='" + postcode + '\'' +
+                ", city='" + city + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

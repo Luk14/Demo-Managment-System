@@ -1,19 +1,19 @@
 package me.lukasz.database;
 
+import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public interface MySQLExec
 {
-    void createRecord(String value);
-    void createRecord(Object object);
+    void createRecord(Object object) throws NoSuchAlgorithmException;
 
-    String getRecordString(String field);
+    String getRecordString(int target, String field);
     ArrayList<Object> getArrayObjects();
-    Object getRecordObject();
+    Object getRecordObject(int target);
 
-    void setString(String record, String targetField);
-    void setInt(int record, String targetField);
+    void setString(String uniqueID, String targetField, String result);
+    void setInt(String uniqueID, String targetField, int result);
 
-    void deleteRecord(String uniquePK);
     void deleteRecord(int uniquePK);
 }

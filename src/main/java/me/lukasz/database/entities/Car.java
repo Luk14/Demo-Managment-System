@@ -5,7 +5,7 @@ public class Car
 
     private int id;
     private String model_name;
-    private Enum model_version;
+    private modelVersion model_version;
     private float price;
     private float year;
     private String colour;
@@ -13,7 +13,7 @@ public class Car
     private float topSpeed;
     private float range_wltp;
 
-    public Car(int id, String model_name, Enum model_version, float price, float year, String colour, float zeroToSixty, float topSpeed, float range_wltp)
+    public Car(int id, String model_name, modelVersion model_version, float price, float year, String colour, float zeroToSixty, float topSpeed, float range_wltp)
     {
         this.id = id;
         this.model_name = model_name;
@@ -51,7 +51,7 @@ public class Car
         return model_version;
     }
 
-    public void setModel_version(Enum model_version)
+    public void setModel_version(modelVersion model_version)
     {
         this.model_version = model_version;
     }
@@ -116,4 +116,26 @@ public class Car
         this.range_wltp = range_wltp;
     }
 
+    public enum modelVersion
+    {
+        STANDARD,
+        LONG_RANGE,
+        PREFORMANCE;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Car{" +
+                "id=" + id +
+                ", model_name='" + model_name + '\'' +
+                ", model_version=" + model_version +
+                ", price=" + price +
+                ", year=" + year +
+                ", colour='" + colour + '\'' +
+                ", zeroToSixty=" + zeroToSixty +
+                ", topSpeed=" + topSpeed +
+                ", range_wltp=" + range_wltp +
+                '}';
+    }
 }
