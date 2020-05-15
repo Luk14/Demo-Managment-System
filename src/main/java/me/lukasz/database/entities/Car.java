@@ -118,6 +118,7 @@ public class Car
 
     public enum modelVersion
     {
+        STANDARD,
         LONG_RANGE,
         PREFORMANCE;
     }
