@@ -6,7 +6,6 @@ import me.lukasz.database.entities.Employee;
 import me.lukasz.database.manager.EmployeeManager;
 import me.lukasz.utils.Authentication;
 import me.lukasz.utils.CliUtil;
-import me.lukasz.utils.Msg;
 import me.lukasz.utils.Scan;
 
 public class CliMain extends CliUtil
@@ -41,6 +40,7 @@ public class CliMain extends CliUtil
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             printTextPrefix("Error has occurred in the system, please try again!");
         }
     }
@@ -90,6 +90,7 @@ public class CliMain extends CliUtil
                 customerCli.addCustomer();
                 break;
             case 3:
+                customerCli.updateCustomer();
                 break;
             case 4:
                 break;

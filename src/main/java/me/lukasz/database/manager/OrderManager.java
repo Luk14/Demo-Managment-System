@@ -3,7 +3,7 @@ package me.lukasz.database.manager;
 import me.lukasz.database.MySQL;
 import me.lukasz.database.entities.Car;
 import me.lukasz.database.entities.Customer;
-import me.lukasz.utils.Msg;
+import me.lukasz.utils.MsgUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ public class OrderManager
     {
         try
         {
-            final String UUID = java.util.UUID.randomUUID().toString();
+            final String UUID = java.util.UUID.randomUUID().toString().substring(0, 8);
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO orders VALUES (?,?)");
             preparedStatement.setString(1, UUID);
             preparedStatement.setString(2, customer.getId());
@@ -36,7 +36,7 @@ public class OrderManager
         } catch (SQLException e)
         {
             e.printStackTrace();
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
     }
 
@@ -44,7 +44,7 @@ public class OrderManager
     {
         try
         {
-            final String UUID = java.util.UUID.randomUUID().toString();
+            final String UUID = java.util.UUID.randomUUID().toString().substring(0, 8);
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO orders VALUES (?,?)");
             preparedStatement.setString(1, UUID);
             preparedStatement.setString(2, customer.getId());
@@ -55,7 +55,7 @@ public class OrderManager
             preparedStatement1.executeUpdate();
         } catch (SQLException e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
     }
 

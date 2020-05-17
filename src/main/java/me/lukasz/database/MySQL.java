@@ -1,6 +1,6 @@
 package me.lukasz.database;
 
-import me.lukasz.utils.Msg;
+import me.lukasz.utils.MsgUtil;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,11 +22,11 @@ public abstract class MySQL
         try
         {
             connection = DriverManager.getConnection("jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE + "?serverTimezone=UTC", USER, PASSWORD);
-            System.out.println(Msg.DB_SUCCESS);
+            System.out.println(MsgUtil.DB_SUCCESS);
         }
         catch (SQLException e)
         {
-            System.out.println(Msg.DB_UNSUCCESSFUL);
+            System.out.println(MsgUtil.DB_UNSUCCESSFUL);
             e.printStackTrace();
         }
     }
@@ -38,13 +38,13 @@ public abstract class MySQL
             if(connection==null||connection.isClosed())
             {
                 connectDatabase();
-                System.out.println(Msg.DB_SUCCESS);
+                System.out.println(MsgUtil.DB_SUCCESS);
                 return connection;
             }
         }
         catch (SQLException e)
         {
-            System.out.println(Msg.DB_UNSUCCESSFUL);
+            System.out.println(MsgUtil.DB_UNSUCCESSFUL);
             e.printStackTrace();
         }
         return connection;
@@ -58,7 +58,7 @@ public abstract class MySQL
         }
         catch (SQLException e)
         {
-            System.out.println(Msg.PREFIX + " Error closing Database!");
+            System.out.println(MsgUtil.PREFIX + " Error closing Database!");
         }
     }
 }

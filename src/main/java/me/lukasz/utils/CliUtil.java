@@ -10,7 +10,7 @@ public abstract class CliUtil
 
     public void printTextPrefix(String text)
     {
-        System.out.println(Msg.PREFIX + text);
+        System.out.println(MsgUtil.PREFIX + text);
     }
 
 }

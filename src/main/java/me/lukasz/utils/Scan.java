@@ -23,7 +23,7 @@ public class Scan
         }
         catch (Exception e)
         {
-            System.out.println(Msg.PREFIX + " Wrong Value, required Int!");
+            System.out.println(MsgUtil.PREFIX + " Wrong Value, required Int!");
         }
         return i;
     }

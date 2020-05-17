@@ -3,7 +3,7 @@ package me.lukasz.database.manager;
 import me.lukasz.database.MySQL;
 import me.lukasz.database.MySQLExec;
 import me.lukasz.database.entities.Customer;
-import me.lukasz.utils.Msg;
+import me.lukasz.utils.MsgUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ public class CustomerManager implements MySQLExec
         try
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO Customer (CID, first_name, last_name, age, address,postcode, city, email) VALUES (?,?,?,?,?,?,?,?)");
-            preparedStatement.setString(1, UUID.randomUUID().toString());
+            preparedStatement.setString(1, UUID.randomUUID().toString().substring(0, 8));
             preparedStatement.setString(2, fname);
             preparedStatement.setString(3, lname);
             preparedStatement.setShort(4, age);
@@ -28,11 +28,11 @@ public class CustomerManager implements MySQLExec
             preparedStatement.setString(7, city);
             preparedStatement.setString(8, email);
             preparedStatement.executeUpdate();
-            System.out.println(Msg.EXECUTED_CORRECTLY);
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         }
         catch (SQLException e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
     }
 
@@ -42,11 +42,11 @@ public class CustomerManager implements MySQLExec
         {
             Customer customer = (Customer) object;
             createRecord(customer.getFname(), customer.getLname(), customer.getAge(), customer.getAddress(), customer.getPostcode(), customer.getCity(),customer.getEmail());
-            System.out.println(Msg.EXECUTED_CORRECTLY);
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         }
         else
         {
-            System.out.println(Msg.INVALID_OBJECT);
+            System.out.println(MsgUtil.INVALID_OBJECT);
         }
     }
 
@@ -54,17 +54,17 @@ public class CustomerManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM customer WHERE CID = " + userId + ";");
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM customer WHERE CID = \"" + userId + "\";");
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next())
             {
-                System.out.println(Msg.EXECUTED_CORRECTLY);
+                System.out.println(MsgUtil.EXECUTED_CORRECTLY);
                 return  resultSet.getString(field);
             }
         }
         catch (Exception e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
         return null;
     }
@@ -84,9 +84,9 @@ public class CustomerManager implements MySQLExec
         }
         catch (Exception e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
-        System.out.println(Msg.EXECUTED_CORRECTLY);
+        System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         return arrayList;
     }
 
@@ -94,18 +94,18 @@ public class CustomerManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM customer WHERE CID = " + uniqueID + ";");
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM customer WHERE CID = \"" + uniqueID + "\";");
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next())
             {
-                System.out.println(Msg.EXECUTED_CORRECTLY);
+                System.out.println(MsgUtil.EXECUTED_CORRECTLY);
                 return new Customer(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getShort(4),
                         resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8));
             }
         }
         catch (Exception e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
         return null;
     }
@@ -114,13 +114,13 @@ public class CustomerManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE customer SET " + targetField + " = " + result + " WHERE CID = " + uniqueID);
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE customer SET " + targetField + " = \"" + result + "\" WHERE CID = \"" + uniqueID + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(Msg.EXECUTED_CORRECTLY);
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         }
         catch (SQLException e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
     }
 
@@ -128,13 +128,13 @@ public class CustomerManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE customer SET " + targetField + " = " + result + " WHERE CID = " + uniqueID);
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE customer SET " + targetField + " = " + result + " WHERE CID = \"" + uniqueID + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(Msg.EXECUTED_CORRECTLY);
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         }
         catch (SQLException e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
     }
 
@@ -142,13 +142,13 @@ public class CustomerManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("DELETE FROM customer WHERE CID = " + uniquePK);
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("DELETE FROM customer WHERE CID = \"" + uniquePK + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(Msg.EXECUTED_CORRECTLY);
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         }
         catch (SQLException e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
     }
 }

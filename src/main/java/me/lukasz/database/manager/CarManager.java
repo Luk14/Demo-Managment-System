@@ -3,7 +3,7 @@ package me.lukasz.database.manager;
 import me.lukasz.database.MySQL;
 import me.lukasz.database.MySQLExec;
 import me.lukasz.database.entities.Car;
-import me.lukasz.utils.Msg;
+import me.lukasz.utils.MsgUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ public class CarManager implements MySQLExec
         try
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO Car (CRID, model_name, model_version, price, year, colour, zero_to_sixty, top_speed, range_wltp) VALUES (?,?,?,?,?,?,?,?)");
-            preparedStatement.setString(1, UUID.randomUUID().toString());
+            preparedStatement.setString(1, UUID.randomUUID().toString().substring(0, 8));
             preparedStatement.setString(2, model_name);
             preparedStatement.setString(3, model_version.toString());
             preparedStatement.setFloat(4, price);
@@ -29,11 +29,11 @@ public class CarManager implements MySQLExec
             preparedStatement.setInt(8, topSpeed);
             preparedStatement.setInt(9, range_wltp);
             preparedStatement.executeUpdate();
-            System.out.println(Msg.EXECUTED_CORRECTLY);
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         } catch (SQLException e)
         {
             e.printStackTrace();
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
     }
 
@@ -43,10 +43,10 @@ public class CarManager implements MySQLExec
         {
             Car car = (Car) object;
             createRecord(car.getModel_name(), car.getModel_version(), car.getPrice(), (short) car.getYear(), car.getColour(), car.getZeroToSixty(), (short) car.getTopSpeed(), (int) car.getRange_wltp());
-            System.out.println(Msg.EXECUTED_CORRECTLY);
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         } else
         {
-            System.out.println(Msg.INVALID_OBJECT);
+            System.out.println(MsgUtil.INVALID_OBJECT);
         }
     }
 
@@ -54,16 +54,16 @@ public class CarManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM car WHERE CRID = " + carId + ";");
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM car WHERE CRID = \"" + carId + "\";");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             {
-                System.out.println(Msg.EXECUTED_CORRECTLY);
+                System.out.println(MsgUtil.EXECUTED_CORRECTLY);
                 return resultSet.getString(field);
             }
         } catch (Exception e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
         return null;
     }
@@ -81,9 +81,9 @@ public class CarManager implements MySQLExec
             }
         } catch (Exception e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
-        System.out.println(Msg.EXECUTED_CORRECTLY);
+        System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         return arrayList;
     }
 
@@ -91,16 +91,16 @@ public class CarManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM car WHERE CRID = " + uniqueID + ";");
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM car WHERE CRID = \"" + uniqueID + "\";");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             {
-                System.out.println(Msg.EXECUTED_CORRECTLY);
+                System.out.println(MsgUtil.EXECUTED_CORRECTLY);
                 return new Car(resultSet.getString(1), resultSet.getString(2), Car.modelVersion.valueOf(resultSet.getString(3).toUpperCase()), resultSet.getFloat(4), resultSet.getFloat(5), resultSet.getString(6), resultSet.getFloat(7), resultSet.getShort(8), resultSet.getInt(9));
             }
         } catch (Exception e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
         return null;
     }
@@ -109,12 +109,12 @@ public class CarManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE car SET " + targetField + " = " + result + " WHERE CRID = " + uniqueID);
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE car SET " + targetField + " = \"" + result + "\" WHERE CRID = \"" + uniqueID + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(Msg.EXECUTED_CORRECTLY);
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         } catch (SQLException e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
     }
 
@@ -122,12 +122,12 @@ public class CarManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE car SET " + targetField + " = " + result + " WHERE CRID = " + uniqueID);
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE car SET " + targetField + " = " + result + " WHERE CRID = \"" + uniqueID + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(Msg.EXECUTED_CORRECTLY);
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         } catch (SQLException e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
     }
 
@@ -135,12 +135,12 @@ public class CarManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("DELETE FROM car WHERE CRID = " + uniquePK);
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("DELETE FROM car WHERE CRID = \"" + uniquePK + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(Msg.EXECUTED_CORRECTLY);
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
         } catch (SQLException e)
         {
-            System.out.println(Msg.DB_ERROR);
+            System.out.println(MsgUtil.DB_ERROR);
         }
     }
 
