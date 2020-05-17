@@ -40,23 +40,22 @@ public class CustomerCli extends CliMain
         }
     }
 
-    // public void createRecord(String fname, String lname, short age, String address, String postcode, String city, String email)
     public void addCustomer()
     {
         Customer customer = new Customer();
-        printText("Please Enter First Name:");
+        printText(" * Please Enter First Name:");
         customer.setFname(Scan.getString());
-        printText("Please Enter Last Name:");
+        printText(" * Please Enter Last Name:");
         customer.setLname(Scan.getString());
-        printText("Please Enter Age");
+        printText(" * Please Enter Age");
         customer.setAge((short) Scan.getInt());
-        printText("Please Enter Address");
+        printText(" * Please Enter Address");
         customer.setAddress(Scan.getString());
-        printText("Please Enter Postcode");
+        printText(" * Please Enter Postcode");
         customer.setPostcode(Scan.getString());
-        printText("Please Enter City");
+        printText(" * Please Enter City");
         customer.setCity(Scan.getString());
-        printText("Please Enter Email");
+        printText(" * Please Enter Email");
         customer.setEmail(Scan.getString());
         printText("Here are the Customer Details, Reply Y to Create or N to Discard!");
         switch (Scan.getString().toLowerCase())
@@ -94,16 +93,102 @@ public class CustomerCli extends CliMain
             do
             {
                 printText("Use the Following Commands to Update Customer!");
-                printText(" * FirstName <Name>");
-                //More
+                printText(" * FirstName <FirstName>");
+                printText(" * LastName <LastName>");
+                printText(" * Age <Age>");
+                printText(" * Address <Address>");
+                printText(" * Postcode <Postcode>");
+                printText(" * City <City>");
+                printText(" * Email <Email>");
+                printText(" * Exit - Exit Customer Update Menu");
                 String[] args = Scan.getString().split(" ");
-                switch (args[0])
+                switch (args[0].toLowerCase())
                 {
-                    case "FirstName":
+                    case "firstname":
                         customerManager.setString(customer.getId(), "first_name", MsgUtil.joinString(args, args[0]));
+                        break;
+                    case "lastname":
+                        customerManager.setString(customer.getId(), "last_name", MsgUtil.joinString(args, args[0]));
+                        break;
+                    case "age":
+                        if(MsgUtil.isNumber(args[1]))
+                        {
+                            customerManager.setInt(customer.getId(), "age", Integer.parseInt(args[1]));
+                        }
+                        else
+                        {
+                            printText("Wrong Input, a Number is Required!");
+                        }
+                        break;
+                    case "address":
+                        customerManager.setString(customer.getId(), "address", MsgUtil.joinString(args, args[0]));
+                        break;
+                    case "city":
+                        customerManager.setString(customer.getId(), "city", MsgUtil.joinString(args, args[0]));
+                        break;
+                    case "postcode":
+                        customerManager.setString(customer.getId(), "postcode", MsgUtil.joinString(args, args[0]));
+                        break;
+                    case "email":
+                        customerManager.setString(customer.getId(), "email", MsgUtil.joinString(args, args[0]));
+                        break;
+                    case "exit":
+                        moreChange = false;
+                        break;
                 }
             }
             while (moreChange);
+            printText("\nType: Home for Main Screen | Type: Exit to close Application");
+            String s = Scan.getString().toLowerCase();
+            switch (s)
+            {
+                case "home":
+                    this.optionsPerm(TeslaMain.employee);
+                    break;
+                case "exit":
+                    printTextPrefix("Exiting Management System!");
+                    MySQL.closeConnection();
+                    System.exit(0);
+                    break;
+                default:
+                    printTextPrefix("Error has occurred, Sending back to Main Menu");
+                    this.optionsPerm(TeslaMain.employee);
+            }
+        }
+    }
+
+    public void deleteCustomer()
+    {
+        CustomerManager customerManager = new CustomerManager();
+        Customer customer;
+        printText("Please enter the UID of the customer you wish to delete!");
+        final String UID = Scan.getString();
+        if (customerManager.getRecordObject(UID) == null)
+        {
+            printText("Customer UID not found! Sending back to Main Menu");
+            this.optionsPerm(TeslaMain.employee);
+        } else
+        {
+            customer = (Customer) customerManager.getRecordObject(UID);
+            printText("Customer Found! Please review the Information and Confirm!");
+            printText("");
+            printText(customer.toString());
+            printText("");
+            printText("Type Y to delete Customer | Type N to discard and try again | Type Exit to go back to Main Menu");
+            switch (Scan.getString().toLowerCase())
+            {
+                case "y":
+                    customerManager.deleteRecord(customer.getId());
+                    printText("Customer Deleted | Sending back to Main Menu");
+                    this.optionsPerm(TeslaMain.employee);
+                    break;
+                case "n":
+                    this.deleteCustomer();
+                    break;
+                case "exit":
+                    this.optionsPerm(TeslaMain.employee);
+                    break;
+            }
         }
     }
 }

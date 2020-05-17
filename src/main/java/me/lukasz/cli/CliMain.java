@@ -59,10 +59,11 @@ public class CliMain extends CliUtil
                 printText("6] Update Customer Details");
                 printText("5] Update Order");
             case STANDARD:
-                printText("4] Add Order");
-                printText("3] View Orders");
-                printText("2] Add Customer");
+                printText("4] Delete Customer"); //Done
+                printText("3] Update Customer"); // Done
+                printText("2] Add Customer"); //Done
                 printText("1] View Customers"); //Done
+                //Add Exit Option!
                 break;
         }
         System.out.println("");
@@ -93,6 +94,7 @@ public class CliMain extends CliUtil
                 customerCli.updateCustomer();
                 break;
             case 4:
+                customerCli.deleteCustomer();
                 break;
             case 5:
                 break;

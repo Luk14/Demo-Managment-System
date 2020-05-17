@@ -27,4 +27,17 @@ public class MsgUtil
         return argString;
     }
 
+    public static boolean isNumber(String s)
+    {
+        try
+        {
+            Integer.parseInt(s);
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
 }
