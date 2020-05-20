@@ -1,14 +1,14 @@
 package me.lukasz.cli;
 
 import me.lukasz.TeslaMain;
-import me.lukasz.cli.othercli.CustomerCli;
+import me.lukasz.cli.othercli.CustomerCLI;
 import me.lukasz.database.entities.Employee;
 import me.lukasz.database.manager.EmployeeManager;
 import me.lukasz.utils.Authentication;
-import me.lukasz.utils.CliUtil;
+import me.lukasz.utils.UtilsCLI;
 import me.lukasz.utils.Scan;
 
-public class CliMain extends CliUtil
+public class MainCLI extends UtilsCLI
 {
 
     public void mainCLI()
@@ -45,6 +45,7 @@ public class CliMain extends CliUtil
         }
     }
 
+    //TODO
     public void optionsPerm(Employee employee)
     {
         switch (employee.getPermissions())
@@ -52,12 +53,15 @@ public class CliMain extends CliUtil
             case SUPER_USER:
                 printText("10] Remove Employee");
             case ADMINISTRATOR:
-                printText("9] Add Employee");
-                printText("8] Update Employee");
+                printText("4] Delete Employee"); //Done
+                printText("3] Update Employee"); // Done
+                printText("2] Add Employee"); //Done
+                printText("1] View Employees"); //Done
             case ELEVATED:
-                printText("7] Remove Order");
-                printText("6] Update Customer Details");
-                printText("5] Update Order");
+                printText("4] Delete Car"); //Done
+                printText("3] Update Car"); // Done
+                printText("2] Add Car"); //Done
+                printText("1] View Cars"); //Done
             case STANDARD:
                 printText("4] Delete Customer"); //Done
                 printText("3] Update Customer"); // Done
@@ -81,7 +85,7 @@ public class CliMain extends CliUtil
 
     private void sendCLI(int input)
     {
-        CustomerCli customerCli = new CustomerCli();
+        CustomerCLI customerCli = new CustomerCLI();
         switch (input)
         {
             case 1:

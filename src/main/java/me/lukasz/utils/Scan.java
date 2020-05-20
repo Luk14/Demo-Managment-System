@@ -28,4 +28,17 @@ public class Scan
         return i;
     }
 
+    public static double getDouble()
+    {
+        double i = 0;
+        try
+        {
+            i = Double.parseDouble(scanner.nextLine());
+        }
+        catch (Exception e)
+        {
+            System.out.println(MsgUtil.PREFIX + " Wrong Value, required Double!");
+        }
+        return i;
+    }
 }

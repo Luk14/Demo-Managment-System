@@ -1,18 +1,16 @@
 package me.lukasz.cli.othercli;
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import me.lukasz.TeslaMain;
-import me.lukasz.cli.CliMain;
+import me.lukasz.cli.MainCLI;
 import me.lukasz.database.MySQL;
 import me.lukasz.database.entities.Customer;
 import me.lukasz.database.manager.CustomerManager;
 import me.lukasz.utils.MsgUtil;
 import me.lukasz.utils.Scan;
-import org.omg.CORBA.CustomMarshal;
 
 import java.util.ArrayList;
 
-public class CustomerCli extends CliMain
+public class CustomerCLI extends MainCLI
 {
 
     public void viewAllCustomers()

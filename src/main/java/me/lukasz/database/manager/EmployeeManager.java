@@ -38,7 +38,7 @@ public class EmployeeManager implements MySQLExec
         }
     }
 
-    public void createRecord(Object object) throws NoSuchAlgorithmException
+    public void createRecord(Object object)
     {
         if(object instanceof Employee)
         {

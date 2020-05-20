@@ -1,6 +1,6 @@
 package me.lukasz.utils;
 
-public abstract class CliUtil
+public abstract class UtilsCLI
 {
 
     public void printText(String text)

@@ -131,6 +131,19 @@ public class CarManager implements MySQLExec
         }
     }
 
+    public void setDouble(String uniqueID, String targetField, double result)
+    {
+        try
+        {
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE car SET " + targetField + " = " + result + " WHERE CRID = \"" + uniqueID + "\"");
+            preparedStatement.executeUpdate();
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+        } catch (SQLException e)
+        {
+            System.out.println(MsgUtil.DB_ERROR);
+        }
+    }
+
     public void deleteRecord(String uniquePK)
     {
         try
