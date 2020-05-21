@@ -18,7 +18,7 @@ public class CarManager implements MySQLExec
     {
         try
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO Car (CRID, model_name, model_version, price, year, colour, zero_to_sixty, top_speed, range_wltp) VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO Car (CRID, model_name, model_version, price, year, colour, zero_to_sixty, top_speed, range_wltp) VALUES (?,?,?,?,?,?,?,?,?)");
             preparedStatement.setString(1, UUID.randomUUID().toString().substring(0, 8));
             preparedStatement.setString(2, model_name);
             preparedStatement.setString(3, model_version.toString());

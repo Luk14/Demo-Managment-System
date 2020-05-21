@@ -6,16 +6,12 @@ import me.lukasz.database.entities.Customer;
 import me.lukasz.utils.MsgUtil;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class OrderManager
 {
-
-        /*
-    Add Order (Inc Customer/Car/CarOrder)
-    Remove Order
-    Update Order?
-     */
 
     public void addOrder(Car[] car, Customer customer)
     {
@@ -57,6 +53,74 @@ public class OrderManager
         {
             System.out.println(MsgUtil.DB_ERROR);
         }
+    }
+
+    public void addTooOrder(Car car, String orderID)
+    {
+        try
+        {
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO car_orders VALUES (?, ?)");
+            preparedStatement.setString(1, orderID);
+            preparedStatement.setString(2, car.getId());
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.out.println(MsgUtil.DB_ERROR);
+        }
+    }
+
+
+    public void removeOrder(String orderID)
+    {
+        try
+        {
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("DELETE FROM orders WHERE OID = \"" + orderID + "\"");
+            preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement1 = MySQL.getConnection().prepareStatement("DELETE FROM car_orders WHERE OID = \"" + orderID + "\"");
+            preparedStatement1.executeUpdate();
+            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+        }
+        catch (SQLException e)
+        {
+            System.out.println(MsgUtil.DB_ERROR);
+        }
+    }
+
+    public double getOrderTotal(String orderID)
+    {
+        try
+        {
+            ArrayList<String> getCarIDs = new ArrayList<>();
+            CarManager carManager = new CarManager();
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT o.OID, o.CID, co.CRID FROM orders o JOIN car_orders co ON o.OID=co.OID WHERE o.OID = \"" + orderID + "\";");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next())
+            {
+                getCarIDs.add(resultSet.getString("CRID"));
+            }
+
+            if(getCarIDs.size()==1)
+            {
+                Car car = (Car) carManager.getRecordObject(getCarIDs.get(0));
+                return car.getPrice();
+            }
+            else
+            {
+                double total = 0;
+                for(String carID : getCarIDs)
+                {
+                    Car car = (Car) carManager.getRecordObject(carID);
+                    total+=car.getPrice();
+                }
+                return total;
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println(MsgUtil.DB_ERROR);
+        }
+        return 0;
     }
 
 }

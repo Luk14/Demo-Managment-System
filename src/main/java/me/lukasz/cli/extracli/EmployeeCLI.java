@@ -1,17 +1,12 @@
-package me.lukasz.cli.othercli;
+package me.lukasz.cli.extracli;
 
 import me.lukasz.TeslaMain;
 import me.lukasz.cli.MainCLI;
-import me.lukasz.database.MySQL;
-import me.lukasz.database.entities.Car;
 import me.lukasz.database.entities.Employee;
-import me.lukasz.database.entities.Employee;
-import me.lukasz.database.manager.EmployeeManager;
 import me.lukasz.database.manager.EmployeeManager;
 import me.lukasz.utils.MsgUtil;
 import me.lukasz.utils.Scan;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class EmployeeCLI extends MainCLI
@@ -26,20 +21,7 @@ public class EmployeeCLI extends MainCLI
             Employee employee = (Employee) object;
             printText(employee.toString());
         }
-        printText("\nType: Home for Main Screen | Type: Exit to close Application");
-        String s = Scan.getString().toLowerCase();
-        switch (s)
-        {
-            case "home":
-                this.optionsPerm(TeslaMain.employee);
-                break;
-            case "exit":
-                printTextPrefix("Exiting Management System!");
-                MySQL.closeConnection();
-                System.exit(0);
-            default:
-                printTextPrefix("Error");
-        }
+        sendExit();
     }
 
     public void addEmployee()
@@ -62,7 +44,7 @@ public class EmployeeCLI extends MainCLI
                 printText(" * Wrong Value! Please Try Again!");
                 askagain = true;
             }
-        }while (askagain);
+        } while (askagain);
         //
         printText(" * Please Enter Work Sector");
         employee.setWork_sector(Scan.getString());
@@ -78,21 +60,18 @@ public class EmployeeCLI extends MainCLI
             case "y":
                 new EmployeeManager().createRecord(employee);
                 printTextPrefix("Employee Created, Sending you back to Main Menu!");
-                this.optionsPerm(TeslaMain.employee);
+                sendExit();
                 break;
             case "n":
                 printTextPrefix("Employee Creation Cancelled! Sending you back to Main Menu");
-                this.optionsPerm(TeslaMain.employee);
+                sendExit();
                 break;
             default:
-                printTextPrefix("Invalid Input! Sending you back to Main Menu");
-                this.optionsPerm(TeslaMain.employee);
+                sendExit();
                 break;
         }
     }
 
-    //TODO
-    //public Employee(String id, String fname, String lname, Employee.userPermission permissions, String work_sector, String email, String username, String password)
     public void updateEmployee()
     {
         EmployeeManager employeeManager = new EmployeeManager();
@@ -152,22 +131,7 @@ public class EmployeeCLI extends MainCLI
                 }
             }
             while (moreChange);
-            printText("\nType: Home for Main Screen | Type: Exit to close Application");
-            String s = Scan.getString().toLowerCase();
-            switch (s)
-            {
-                case "home":
-                    this.optionsPerm(TeslaMain.employee);
-                    break;
-                case "exit":
-                    printTextPrefix("Exiting Management System!");
-                    MySQL.closeConnection();
-                    System.exit(0);
-                    break;
-                default:
-                    printTextPrefix("Error has occurred, Sending back to Main Menu");
-                    this.optionsPerm(TeslaMain.employee);
-            }
+            sendExit();
         }
     }
 
@@ -175,11 +139,11 @@ public class EmployeeCLI extends MainCLI
     {
         EmployeeManager employeeManager = new EmployeeManager();
         Employee employee;
-        printText("Please enter the UID of the employee you wish to delete!");
+        printText("Please enter the EID of the employee you wish to delete!");
         final String UID = Scan.getString();
         if (employeeManager.getRecordObject(UID) == null)
         {
-            printText("Employee UID not found! Sending back to Main Menu");
+            printText("Employee EID not found! Sending back to Main Menu");
             this.optionsPerm(TeslaMain.employee);
         } else
         {
@@ -188,20 +152,19 @@ public class EmployeeCLI extends MainCLI
             printText("");
             printText(employee.toString());
             printText("");
-            printText("Type Y to delete Employee | Type N to discard and try again | Type Exit to go back to Main Menu");
+            printText("Type Y to delete Employee | Type N to discard and try again");
             switch (Scan.getString().toLowerCase())
             {
                 case "y":
                     employeeManager.deleteRecord(employee.getId());
-                    printText("Employee Deleted | Sending back to Main Menu");
-                    this.optionsPerm(TeslaMain.employee);
+                    printText("Employee Deleted");
+                    sendExit();
                     break;
                 case "n":
                     this.deleteEmployee();
                     break;
-                case "exit":
-                    this.optionsPerm(TeslaMain.employee);
-                    break;
+                default:
+                    sendExit();
             }
         }
     }

@@ -1,8 +1,7 @@
-package me.lukasz.cli.othercli;
+package me.lukasz.cli.extracli;
 
 import me.lukasz.TeslaMain;
 import me.lukasz.cli.MainCLI;
-import me.lukasz.database.MySQL;
 import me.lukasz.database.entities.Customer;
 import me.lukasz.database.manager.CustomerManager;
 import me.lukasz.utils.MsgUtil;
@@ -22,20 +21,7 @@ public class CustomerCLI extends MainCLI
             Customer customer = (Customer) object;
             printText(customer.toString());
         }
-        printText("\nType: Home for Main Screen | Type: Exit to close Application");
-        String s = Scan.getString().toLowerCase();
-        switch (s)
-        {
-            case "home":
-                this.optionsPerm(TeslaMain.employee);
-                break;
-            case "exit":
-                printTextPrefix("Exiting Management System!");
-                MySQL.closeConnection();
-                System.exit(0);
-            default:
-                printTextPrefix("Error");
-        }
+        sendExit();
     }
 
     public void addCustomer()
@@ -60,16 +46,15 @@ public class CustomerCLI extends MainCLI
         {
             case "y":
                 new CustomerManager().createRecord(customer);
-                printTextPrefix("Customer Created, Sending you back to Main Menu!");
-                this.optionsPerm(TeslaMain.employee);
+                printTextPrefix("Customer Created");
+                sendExit();
                 break;
             case "n":
-                printTextPrefix("Customer Creation Cancelled! Sending you back to Main Menu");
-                this.optionsPerm(TeslaMain.employee);
+                printTextPrefix("Customer Creation Cancelled!");
+                sendExit();
                 break;
             default:
-                printTextPrefix("Invalid Input! Sending you back to Main Menu");
-                this.optionsPerm(TeslaMain.employee);
+                sendExit();
                 break;
         }
     }
@@ -109,11 +94,10 @@ public class CustomerCLI extends MainCLI
                         customerManager.setString(customer.getId(), "last_name", MsgUtil.joinString(args, args[0]));
                         break;
                     case "age":
-                        if(MsgUtil.isNumber(args[1]))
+                        if (MsgUtil.isNumber(args[1]))
                         {
                             customerManager.setInt(customer.getId(), "age", Integer.parseInt(args[1]));
-                        }
-                        else
+                        } else
                         {
                             printText("Wrong Input, a Number is Required!");
                         }
@@ -136,22 +120,7 @@ public class CustomerCLI extends MainCLI
                 }
             }
             while (moreChange);
-            printText("\nType: Home for Main Screen | Type: Exit to close Application");
-            String s = Scan.getString().toLowerCase();
-            switch (s)
-            {
-                case "home":
-                    this.optionsPerm(TeslaMain.employee);
-                    break;
-                case "exit":
-                    printTextPrefix("Exiting Management System!");
-                    MySQL.closeConnection();
-                    System.exit(0);
-                    break;
-                default:
-                    printTextPrefix("Error has occurred, Sending back to Main Menu");
-                    this.optionsPerm(TeslaMain.employee);
-            }
+            sendExit();
         }
     }
 
@@ -172,19 +141,16 @@ public class CustomerCLI extends MainCLI
             printText("");
             printText(customer.toString());
             printText("");
-            printText("Type Y to delete Customer | Type N to discard and try again | Type Exit to go back to Main Menu");
+            printText("Type Y to delete Customer | Type N to discard and try again");
             switch (Scan.getString().toLowerCase())
             {
                 case "y":
                     customerManager.deleteRecord(customer.getId());
-                    printText("Customer Deleted | Sending back to Main Menu");
-                    this.optionsPerm(TeslaMain.employee);
+                    printText("Customer was successfully Deleted!");
+                    this.sendExit();
                     break;
                 case "n":
                     this.deleteCustomer();
-                    break;
-                case "exit":
-                    this.optionsPerm(TeslaMain.employee);
                     break;
             }
         }
