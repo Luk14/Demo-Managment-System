@@ -28,7 +28,7 @@ public class Authentication
     public String hashPassword() throws NoSuchAlgorithmException
     {
         MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(password.getBytes());
+        md.update(this.password.getBytes());
         byte[] bytes = md.digest();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < bytes.length; i++)
@@ -48,5 +48,25 @@ public class Authentication
             localpass = resultSet.getString(8);
         }
         return this.hashPassword().equals(localpass);
+    }
+
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 }
