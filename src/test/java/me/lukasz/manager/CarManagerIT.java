@@ -1,20 +1,14 @@
 package me.lukasz.manager;
 
 import me.lukasz.database.entities.Car;
-import me.lukasz.database.entities.Customer;
 import me.lukasz.database.manager.CarManager;
-import me.lukasz.database.manager.CustomerManager;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class CarManagerIT
 {
@@ -42,7 +36,7 @@ public class CarManagerIT
     public void updateReadTest()
     {
         ArrayList<Object> carArrayList = carManager.getArrayObjects();
-        Car car = (Car) carArrayList.get(carArrayList.size()-1);
+        Car car = (Car) carArrayList.get(carArrayList.size() - 1);
         carManager.setString(car.getId(), "model_name", "Model Y");
         Car updatedCar = (Car) carManager.getRecordObject(car.getId());
         assertEquals("Model Y", updatedCar.getModel_name());

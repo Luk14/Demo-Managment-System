@@ -5,12 +5,8 @@ import me.lukasz.database.entities.Customer;
 import me.lukasz.database.entities.Order;
 import me.lukasz.database.manager.OrderManager;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -38,7 +34,7 @@ public class OrderManagerIT
     {
         orderManager.addOrder(car, customer);
         ArrayList<Order> orderArrayList = orderManager.getAllOrder();
-        Order newCreated = (Order) orderArrayList.get(orderArrayList.size()-1);
+        Order newCreated = (Order) orderArrayList.get(orderArrayList.size() - 1);
         assertEquals(customer.getId(), newCreated.getCustomerID());
     }
 
@@ -46,20 +42,20 @@ public class OrderManagerIT
     public void updateReadTest()
     {
         ArrayList<Order> orderArrayList = orderManager.getAllOrder();
-        Order order = orderArrayList.get(orderArrayList.size()-1);
+        Order order = orderArrayList.get(orderArrayList.size() - 1);
         orderManager.addTooOrder(car, order.getOrderID());
         Order updatedOrder = orderManager.getOrder(order.getOrderID());
-        assertTrue(order.getCarIDs().size()!=updatedOrder.getCarIDs().size());
+        assertTrue(order.getCarIDs().size() != updatedOrder.getCarIDs().size());
     }
 
     @Test
     public void deleteTest()
     {
         ArrayList<Order> objectArrayList = orderManager.getAllOrder();
-        Order toDelete = objectArrayList.get(objectArrayList.size()-1);
+        Order toDelete = objectArrayList.get(objectArrayList.size() - 1);
         orderManager.removeOrder(toDelete.getOrderID());
         ArrayList<Order> updatedObjectList = orderManager.getAllOrder();
-        Order lastIndexCar = updatedObjectList.get(updatedObjectList.size()-1);
+        Order lastIndexCar = updatedObjectList.get(updatedObjectList.size() - 1);
         assertFalse(toDelete.getOrderID().equals(lastIndexCar.getOrderID()));
     }
 }

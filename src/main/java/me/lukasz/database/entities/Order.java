@@ -22,7 +22,9 @@ public class Order
         this.customerID = customerID;
     }
 
-    public Order(){}
+    public Order()
+    {
+    }
 
     public String getOrderID()
     {
@@ -57,11 +59,11 @@ public class Order
     public String getCarIDsString()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        for(String string : getCarIDs())
+        for (String string : getCarIDs())
         {
             stringBuilder.append(string + ",");
         }
-        stringBuilder.replace(stringBuilder.length()-1, stringBuilder.length(), "");
+        stringBuilder.replace(stringBuilder.length() - 1, stringBuilder.length(), "");
         return stringBuilder.toString();
     }
 

@@ -23,8 +23,7 @@ public abstract class MySQL
         {
             connection = DriverManager.getConnection("jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE + "?serverTimezone=UTC", USER, PASSWORD);
             System.out.println(MsgUtil.DB_SUCCESS);
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             System.out.println(MsgUtil.DB_UNSUCCESSFUL);
             e.printStackTrace();
@@ -35,14 +34,13 @@ public abstract class MySQL
     {
         try
         {
-            if(connection==null||connection.isClosed())
+            if (connection == null || connection.isClosed())
             {
                 connectDatabase();
                 System.out.println(MsgUtil.DB_SUCCESS);
                 return connection;
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             System.out.println(MsgUtil.DB_UNSUCCESSFUL);
             e.printStackTrace();
@@ -55,8 +53,7 @@ public abstract class MySQL
         try
         {
             getConnection().close();
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             System.out.println(MsgUtil.PREFIX + " Error closing Database!");
         }

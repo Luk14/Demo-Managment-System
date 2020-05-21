@@ -33,8 +33,7 @@ public class MsgUtil
         {
             Integer.parseInt(s);
             return true;
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             return false;
         }

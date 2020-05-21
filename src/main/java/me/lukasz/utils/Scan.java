@@ -20,8 +20,7 @@ public class Scan
         try
         {
             i = Integer.parseInt(scanner.nextLine());
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println(MsgUtil.PREFIX + " Wrong Value, required Int!");
         }
@@ -34,8 +33,7 @@ public class Scan
         try
         {
             i = Double.parseDouble(scanner.nextLine());
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println(MsgUtil.PREFIX + " Wrong Value, required Double!");
         }

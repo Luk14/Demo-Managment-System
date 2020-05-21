@@ -3,12 +3,8 @@ package me.lukasz.manager;
 import me.lukasz.database.entities.Customer;
 import me.lukasz.database.manager.CustomerManager;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -32,7 +28,7 @@ public class CustomerManagerIT
         Customer customer = new Customer("UID", "James", "Smith", (short) 25, "48 Chol Rd", "RM193DF", "Leeds", "JSmith@ICloud.com");
         customerManager.createRecord(customer);
         ArrayList<Object> customerArrayList = customerManager.getArrayObjects();
-        Customer newCreated = (Customer) customerArrayList.get(customerArrayList.size()-1);
+        Customer newCreated = (Customer) customerArrayList.get(customerArrayList.size() - 1);
         assertEquals(customer.getFname(), newCreated.getFname());
     }
 
@@ -40,7 +36,7 @@ public class CustomerManagerIT
     public void updateReadTest()
     {
         ArrayList<Object> customerArrayList = customerManager.getArrayObjects();
-        Customer customer = (Customer) customerArrayList.get(customerArrayList.size()-1);
+        Customer customer = (Customer) customerArrayList.get(customerArrayList.size() - 1);
         customerManager.setString(customer.getId(), "first_name", "Smith");
         Customer updatedCustomer = (Customer) customerManager.getRecordObject(customer.getId());
         assertEquals("Smith", updatedCustomer.getFname());
@@ -50,11 +46,11 @@ public class CustomerManagerIT
     public void deleteTest()
     {
         ArrayList<Object> objectArrayList = customerManager.getArrayObjects();
-        Customer toDelete = (Customer) objectArrayList.get(objectArrayList.size()-1);
+        Customer toDelete = (Customer) objectArrayList.get(objectArrayList.size() - 1);
         customerManager.deleteRecord(toDelete.getId());
         ArrayList<Object> updatedObjectList = customerManager.getArrayObjects();
-        Customer lastIndexCustomer = (Customer) updatedObjectList.get(updatedObjectList.size()-1);
+        Customer lastIndexCustomer = (Customer) updatedObjectList.get(updatedObjectList.size() - 1);
         assertFalse(toDelete.getId().equals(lastIndexCustomer.getId()));
     }
-    
+
 }
