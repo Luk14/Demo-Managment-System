@@ -32,7 +32,7 @@ public class EmployeeCLI extends MainCLI
         employee.setFname(Scan.getString());
         printText(" * Please Enter Last Name:");
         employee.setLname(Scan.getString());
-        printText(" * Please Enter User Permissions");
+        printText(" * Please Enter User Permissions (Standard, Elevated, Administrator, Super_User)");
         do
         {
             try

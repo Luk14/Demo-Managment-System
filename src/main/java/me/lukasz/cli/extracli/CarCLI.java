@@ -30,7 +30,7 @@ public class CarCLI extends MainCLI
         boolean askagain = true;
         printText(" * Please Enter Model Name:");
         car.setModel_name(Scan.getString());
-        printText(" * Please Enter Model Version: (" + Car.modelVersion.values().toString().replace("[", "").replace("]", ""));
+        printText(" * Please Enter Model Version: (Standard, Long_Range, Performance)");
         do
         {
             try
