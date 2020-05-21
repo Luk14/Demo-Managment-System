@@ -53,25 +53,13 @@ public class MainCLI extends UtilsCLI
         switch (employee.getPermissions())
         {
             case SUPER_USER:
-                printText("16] View All Orders");
-                printText("15] Add Order");
-                printText("14] Add Car To Order");
-                printText("13] Remove Order");
+                printText("16] View All Orders | 15] Add Order       | 14] Add Car To Order | 13] Remove Order");
             case ADMINISTRATOR:
-                printText("12] Delete Employee");
-                printText("11] Update Employee");
-                printText("10] Add Employee");
-                printText("9] View Employees");
+                printText("12] Delete Employee | 11] Update Employee | 10] Add Employee     | 9] View Employees");
             case ELEVATED:
-                printText("8] Delete Car");
-                printText("7] Update Car");
-                printText("6] Add Car");
-                printText("5] View Cars");
+                printText("8] Delete Car       | 7] Update Car       | 6] Add Car           | 5] View Cars");
             case STANDARD:
-                printText("4] Delete Customer");
-                printText("3] Update Customer");
-                printText("2] Add Customer");
-                printText("1] View Customers");
+                printText("4] Delete Customer  | 3] Update Customer  | 2] Add Customer      | 1] View Customers");
                 printText("0] Exit Application");
                 break;
         }
@@ -165,6 +153,9 @@ public class MainCLI extends UtilsCLI
                 break;
             case 15:
                 orderCLI.addOrder();
+                break;
+            case 16:
+                orderCLI.viewAllOrders();
                 break;
             default:
                 printTextPrefix("Wrong Option Selected! Please retry");

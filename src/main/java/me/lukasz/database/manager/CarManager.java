@@ -29,7 +29,7 @@ public class CarManager implements MySQLExec
             preparedStatement.setInt(8, topSpeed);
             preparedStatement.setInt(9, range_wltp);
             preparedStatement.executeUpdate();
-            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -43,7 +43,7 @@ public class CarManager implements MySQLExec
         {
             Car car = (Car) object;
             createRecord(car.getModel_name(), car.getModel_version(), car.getPrice(), (short) car.getYear(), car.getColour(), car.getZeroToSixty(), (short) car.getTopSpeed(), (int) car.getRange_wltp());
-            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+
         } else
         {
             System.out.println(MsgUtil.INVALID_OBJECT);
@@ -58,7 +58,7 @@ public class CarManager implements MySQLExec
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             {
-                System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+
                 return resultSet.getString(field);
             }
         } catch (Exception e)
@@ -95,7 +95,7 @@ public class CarManager implements MySQLExec
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             {
-                System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+
                 return new Car(resultSet.getString(1), resultSet.getString(2), Car.modelVersion.valueOf(resultSet.getString(3).toUpperCase()), resultSet.getFloat(4), resultSet.getFloat(5), resultSet.getString(6), resultSet.getFloat(7), resultSet.getShort(8), resultSet.getInt(9));
             }
         } catch (Exception e)
@@ -111,7 +111,7 @@ public class CarManager implements MySQLExec
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE car SET " + targetField + " = \"" + result + "\" WHERE CRID = \"" + uniqueID + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+
         } catch (SQLException e)
         {
             System.out.println(MsgUtil.DB_ERROR);
@@ -124,7 +124,7 @@ public class CarManager implements MySQLExec
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE car SET " + targetField + " = " + result + " WHERE CRID = \"" + uniqueID + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+
         } catch (SQLException e)
         {
             System.out.println(MsgUtil.DB_ERROR);
@@ -137,7 +137,7 @@ public class CarManager implements MySQLExec
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE car SET " + targetField + " = " + result + " WHERE CRID = \"" + uniqueID + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+
         } catch (SQLException e)
         {
             System.out.println(MsgUtil.DB_ERROR);
@@ -150,7 +150,7 @@ public class CarManager implements MySQLExec
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("DELETE FROM car WHERE CRID = \"" + uniquePK + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+
         } catch (SQLException e)
         {
             System.out.println(MsgUtil.DB_ERROR);

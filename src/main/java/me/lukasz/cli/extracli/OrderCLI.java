@@ -3,6 +3,7 @@ package me.lukasz.cli.extracli;
 import me.lukasz.cli.MainCLI;
 import me.lukasz.database.entities.Car;
 import me.lukasz.database.entities.Customer;
+import me.lukasz.database.entities.Order;
 import me.lukasz.database.manager.CarManager;
 import me.lukasz.database.manager.CustomerManager;
 import me.lukasz.database.manager.OrderManager;
@@ -90,6 +91,16 @@ public class OrderCLI extends MainCLI
             default:
                 sendExit();
         }
+    }
+
+    public void viewAllOrders()
+    {
+        OrderManager orderManager = new OrderManager();
+        for (Order order : orderManager.getAllOrder())
+        {
+            System.out.println(orderManager.getOrder(order.getOrderID()).toString() + " Total: " + orderManager.getOrderTotal(order.getOrderID()));
+        }
+        sendExit();
     }
 
 }

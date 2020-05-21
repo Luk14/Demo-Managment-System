@@ -16,7 +16,7 @@ import java.util.UUID;
 public class EmployeeManager implements MySQLExec
 {
 
-    public void createRecord(String fname, String lname, Enum user_permissions, String work_sector, String email,String username, String password)
+    public void createRecord(String fname, String lname, Enum user_permissions, String work_sector, String email, String username, String password)
     {
         try
         {
@@ -30,9 +30,8 @@ public class EmployeeManager implements MySQLExec
             preparedStatement.setString(7, username);
             preparedStatement.setString(8, new Authentication(password).hashPassword());
             preparedStatement.executeUpdate();
-            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
-        }
-        catch (SQLException | NoSuchAlgorithmException e)
+
+        } catch (SQLException | NoSuchAlgorithmException e)
         {
             System.out.println(MsgUtil.DB_ERROR);
         }
@@ -40,13 +39,12 @@ public class EmployeeManager implements MySQLExec
 
     public void createRecord(Object object)
     {
-        if(object instanceof Employee)
+        if (object instanceof Employee)
         {
             Employee employee = (Employee) object;
             createRecord(employee.getFname(), employee.getLname(), employee.getPermissions(), employee.getWork_sector(), employee.getEmail(), employee.getUsername(), employee.getPassword());
-            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
-        }
-        else
+
+        } else
         {
             System.out.println(MsgUtil.INVALID_OBJECT);
         }
@@ -58,13 +56,12 @@ public class EmployeeManager implements MySQLExec
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM employee WHERE EID = \"" + userId + "\";");
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next())
+            while (resultSet.next())
             {
-                System.out.println(MsgUtil.EXECUTED_CORRECTLY);
-                return  resultSet.getString(field);
+
+                return resultSet.getString(field);
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println(MsgUtil.DB_ERROR);
         }
@@ -78,17 +75,16 @@ public class EmployeeManager implements MySQLExec
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM employee");
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next())
+            while (resultSet.next())
             {
                 arrayList.add(new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Employee.userPermission.valueOf(resultSet.getString(4).toUpperCase()),
                         resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8)));
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println(MsgUtil.DB_ERROR);
         }
-        System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+
         return arrayList;
     }
 
@@ -98,14 +94,13 @@ public class EmployeeManager implements MySQLExec
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM employee WHERE EID = \"" + uniqueID + "\";");
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next())
+            while (resultSet.next())
             {
-                System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+
                 return new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Employee.userPermission.valueOf(resultSet.getString(4).toUpperCase()),
                         resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8));
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println(MsgUtil.DB_ERROR);
         }
@@ -118,14 +113,13 @@ public class EmployeeManager implements MySQLExec
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT * FROM employee WHERE username = \"" + username + "\";");
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next())
+            while (resultSet.next())
             {
-                System.out.println(MsgUtil.EXECUTED_CORRECTLY);
+
                 return new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Employee.userPermission.valueOf(resultSet.getString(4).toUpperCase()),
                         resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8));
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println(MsgUtil.DB_ERROR);
         }
@@ -138,9 +132,8 @@ public class EmployeeManager implements MySQLExec
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE employee SET " + targetField + " = \"" + result + "\" WHERE EID = \"" + uniqueID + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
-        }
-        catch (SQLException e)
+
+        } catch (SQLException e)
         {
             System.out.println(MsgUtil.DB_ERROR);
         }
@@ -152,9 +145,8 @@ public class EmployeeManager implements MySQLExec
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE employee SET " + targetField + " = " + result + " WHERE EID = " + uniqueID);
             preparedStatement.executeUpdate();
-            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
-        }
-        catch (SQLException e)
+
+        } catch (SQLException e)
         {
             System.out.println(MsgUtil.DB_ERROR);
         }
@@ -166,9 +158,8 @@ public class EmployeeManager implements MySQLExec
         {
             PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("DELETE FROM employee WHERE EID = \"" + uniquePK + "\"");
             preparedStatement.executeUpdate();
-            System.out.println(MsgUtil.EXECUTED_CORRECTLY);
-        }
-        catch (SQLException e)
+
+        } catch (SQLException e)
         {
             System.out.println(MsgUtil.DB_ERROR);
         }
