@@ -128,16 +128,15 @@ public class Car
     @Override
     public String toString()
     {
-        return "Car{" +
-                "id=" + id +
-                ", model_name='" + model_name + '\'' +
-                ", model_version=" + model_version +
-                ", price=" + price +
-                ", year=" + year +
-                ", colour='" + colour + '\'' +
-                ", zeroToSixty=" + zeroToSixty +
-                ", topSpeed=" + topSpeed +
-                ", range_wltp=" + range_wltp +
-                '}';
+        return "Car: " +
+                "ID:" + id +
+                ", Model Name:'" + model_name + '\'' +
+                ", Model Version:" + model_version +
+                ", Price: £" + price +
+                ", Year: " + year +
+                ", Colour: " + colour + '\'' +
+                ", Zero To Sixty: " + zeroToSixty +
+                ", Top Speed: " + topSpeed +
+                ", Range WLTP:" + range_wltp;
     }
 }

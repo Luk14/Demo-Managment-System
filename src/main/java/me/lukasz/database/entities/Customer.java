@@ -109,15 +109,14 @@ public class Customer
     @Override
     public String toString()
     {
-        return "Customer{" +
-                "id=" + id +
-                ", fname='" + fname + '\'' +
-                ", lname='" + lname + '\'' +
-                ", age=" + age +
-                ", address='" + address + '\'' +
-                ", postcode='" + postcode + '\'' +
-                ", city='" + city + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return "Customer: " +
+                "ID: " + id +
+                ", First Name: " + fname + '\'' +
+                ", Last Name: " + lname + '\'' +
+                ", Age: " + age +
+                ", Address: " + address + '\'' +
+                ", Postcode: " + postcode + '\'' +
+                ", City: " + city + '\'' +
+                ", Email: " + email + '\'';
     }
 }

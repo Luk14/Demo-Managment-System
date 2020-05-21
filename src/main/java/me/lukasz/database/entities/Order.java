@@ -86,10 +86,9 @@ public class Order
     @Override
     public String toString()
     {
-        return "Order{" +
-                "orderID='" + orderID + '\'' +
-                ", customerID='" + customerID + '\'' +
-                ", carIDs=" + getCarIDsString() +
-                '}';
+        return "Order: " +
+                "OrderID: " + orderID + '\'' +
+                ", CustomerID: " + customerID + '\'' +
+                ", CarID(s): " + getCarIDsString();
     }
 }

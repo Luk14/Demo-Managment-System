@@ -117,14 +117,13 @@ public class Employee
     @Override
     public String toString()
     {
-        return "Employee{" +
-                "id='" + id + '\'' +
-                ", fname='" + fname + '\'' +
-                ", lname='" + lname + '\'' +
-                ", permissions=" + permissions +
-                ", work_sector='" + work_sector + '\'' +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                '}';
+        return "Employee: " +
+                "ID: " + id + '\'' +
+                ", First Name: " + fname + '\'' +
+                ", Last Name: " + lname + '\'' +
+                ", Permissions: " + permissions +
+                ", Work Sector: " + work_sector + '\'' +
+                ", Email: " + email + '\'' +
+                ", Username: " + username + '\'';
     }
 }

@@ -98,7 +98,7 @@ public class OrderCLI extends MainCLI
         OrderManager orderManager = new OrderManager();
         for (Order order : orderManager.getAllOrder())
         {
-            System.out.println(orderManager.getOrder(order.getOrderID()).toString() + " Total: " + orderManager.getOrderTotal(order.getOrderID()));
+            System.out.println(orderManager.getOrder(order.getOrderID()).toString() + " Total: £" + String.format("%.2f", orderManager.getOrderTotal(order.getOrderID())));
         }
         sendExit();
     }

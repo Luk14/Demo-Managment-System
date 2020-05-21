@@ -106,7 +106,6 @@ public class OrderManager
         return order;
     }
 
-    //TODO
     public ArrayList<Order> getAllOrder()
     {
         ArrayList<Order> orders = new ArrayList<>();
